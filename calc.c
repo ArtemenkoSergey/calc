@@ -1,8 +1,8 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include <stdio.h>      // printf(), putchar(), fprintf(), fgets()
+#include <stdlib.h>     // exit()
 
 #define DEBUG 0
-#define VERBOSE 0
+#define VERBOSE 1
 
 // Константы определяющие тип элемента списка.
 #define OPERAND_TYPE 0x0000
@@ -138,7 +138,7 @@ int main(int argc, char **argv)
     printf("+++++++++++++++++++\n");
     PrintList(list, str);
     printf("+++++++++++++++++++\n");
-    //ShowListItem(list, str);
+    // ShowListItem(list, str);
 #endif
     printf("Результат вычисления выражения равен: ");
     PrintItem(list, str);
@@ -317,8 +317,8 @@ struct ListItem* CalcExecute(struct ListItem * item, char *str)
          if (t->Type == PARENTHESIS_TYPE)
          {
              #if VERBOSE
-                printf("Вычисляем выражение в скобках\n");
-                PrintItem(t, str);
+                printf("Вычисляем выражение в скобках:\n");
+                // PrintItem(t, str);
              #endif
              l=0, c=1;
              do {
@@ -447,7 +447,7 @@ void ShowListItem(struct ListItem *item, char* str)
     printf("\nСтроковое представление: ");
     PrintItem(item, str);
     printf("\n");
-    char s[20];
+    char* s;
     switch (item->Type)
     {
         case OPERAND_TYPE: s = "Операнд"; break;
@@ -590,11 +590,8 @@ int isDigit(char c)
 
 int isOperation(char c)
 {
-    const char operations[] = "()*/%+-";
-    int i;
-    for (i=0; operations[i]!='\0';i++)
-        if (operations[i]==c) return 1;
-    return 0;
+    return PARENTHESIS_OPEN_SYMVOL==c || PARENTHESIS_CLOSE_SYMVOL==c || MULTIOLICATION_SYMVOL==c || DIVISION_SYMVOL==c || \
+           MODULO_SYMVOL==c || BINARY_PLUS_SYMVOL==c || BINARY_MINUS_SYMVOL==c || UNARY_PLUS_SYMVOL, UNARY_PLUS_SYMVOL;
 }
 
 
